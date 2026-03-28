@@ -1,0 +1,74 @@
+══════════════════════════════════════════
+  OTAKU TRACKER — Instrucciones de Uso
+══════════════════════════════════════════
+
+📁 ARCHIVOS INCLUIDOS:
+  index.html       → La aplicación principal
+  manifest.json    → Configuración PWA
+  sw.js            → Service Worker (offline)
+  icon-192.png     → Ícono de la app
+  icon-512.png     → Ícono de la app (grande)
+  SUPABASE_SETUP.sql → Script para la base de datos
+
+══════════════════════════════════════════
+🌐 OPCIÓN 1: USAR DESDE EL NAVEGADOR (SIN SINCRONIZAR)
+══════════════════════════════════════════
+  1. Abre index.html en Chrome o Edge
+  2. Los datos se guardan en el navegador (localStorage)
+  ⚠️  Sin Supabase, PC y tablet NO se sincronizan
+
+══════════════════════════════════════════
+☁️ OPCIÓN 2: SINCRONIZACIÓN CON SUPABASE (GRATIS)
+══════════════════════════════════════════
+  PASO 1 — Crear cuenta Supabase:
+    → Ve a https://supabase.com y crea cuenta gratis
+    → Crea un nuevo proyecto (elige región más cercana)
+    → Espera ~2 minutos a que inicie
+
+  PASO 2 — Crear las tablas:
+    → En tu proyecto Supabase: SQL Editor → New Query
+    → Pega el contenido de SUPABASE_SETUP.sql
+    → Haz clic en "Run"
+
+  PASO 3 — Obtener credenciales:
+    → Settings → API
+    → Copia "Project URL" (ej: https://abcd.supabase.co)
+    → Copia "anon public key" (empieza con eyJ...)
+
+  PASO 4 — Configurar en la app:
+    → Abre index.html
+    → Haz clic en el botón ⚙️ (esquina superior derecha)
+    → Pega URL y Anon Key
+    → "Guardar y Conectar"
+    → ¡Listo! Ahora tablet y PC se sincronizan
+
+══════════════════════════════════════════
+📱 INSTALAR COMO APP (PWA)
+══════════════════════════════════════════
+  OPCIÓN A — Servidor local (recomendado):
+    Necesitas Python instalado:
+    1. Abre terminal en la carpeta otaku-tracker
+    2. Ejecuta: python -m http.server 8080
+    3. Abre Chrome: http://localhost:8080
+    4. Verás el banner "Instalar" → haz clic
+
+  OPCIÓN B — Hosting gratuito:
+    → Sube la carpeta a https://netlify.com (drag & drop)
+    → Obtienes un link como https://tuapp.netlify.app
+    → Abre ese link en tablet Y PC
+    → Instala desde el navegador en ambos
+
+  OPCIÓN C — GitHub Pages (gratis):
+    → Crea repo en github.com
+    → Sube los archivos
+    → Settings → Pages → habilitar
+    → Obtienes URL pública
+
+══════════════════════════════════════════
+🖼️ NOTA SOBRE IMÁGENES:
+══════════════════════════════════════════
+  Las imágenes se guardan LOCALMENTE en cada dispositivo.
+  En Supabase solo se sincronizan los datos de texto.
+  Para ver la misma portada en tablet y PC, 
+  súbela desde cada dispositivo por separado.
+══════════════════════════════════════════
