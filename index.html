@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Otaku Tracker">
-<meta name="description" content="Tracker personal de manga, manhwa, manhua y anime">
+<meta name="description" content="Tracker personal de kdramas y anime">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
 <title>Otaku Tracker</title>
@@ -15,7 +15,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@300;400;600;700;900&display=swap');
 :root{
   --bg:#0d0d14;--surface:#13131f;--card:#1a1a2e;--border:#2a2a45;
-  --accent-manga:#ff6b6b;--accent-manhwa:#ffd93d;--accent-manhua:#6bcb77;
+  --accent-kdrama:#ff6b9d;--accent-kdrama2:#ffd93d;--accent-kdrama3:#c084fc;
   --accent-anime:#4ecdc4;--text:#e8e8f0;--muted:#6b6b8a;--gold:#ffd700;--purple:#a78bfa;
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
@@ -23,16 +23,16 @@
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;overscroll-behavior:none;}
 body{background:var(--bg);color:var(--text);font-family:'Nunito',sans-serif;min-height:100vh;overflow-x:hidden;}
-body::before{content:'';position:fixed;top:-200px;left:-200px;width:700px;height:700px;background:radial-gradient(circle,rgba(255,107,107,0.05) 0%,transparent 70%);pointer-events:none;z-index:0;}
+body::before{content:'';position:fixed;top:-200px;left:-200px;width:700px;height:700px;background:radial-gradient(circle,rgba(255,107,157,0.05) 0%,transparent 70%);pointer-events:none;z-index:0;}
 body::after{content:'';position:fixed;bottom:-200px;right:-200px;width:700px;height:700px;background:radial-gradient(circle,rgba(78,205,196,0.05) 0%,transparent 70%);pointer-events:none;z-index:0;}
 .app{position:relative;z-index:1;display:flex;flex-direction:column;min-height:100vh;}
 
 /* SYNC BAR */
 #sync-bar{padding:6px 20px;font-size:0.72rem;font-weight:700;text-align:center;display:none;gap:8px;align-items:center;justify-content:center;}
 #sync-bar.show{display:flex;}
-#sync-bar.syncing{background:rgba(255,217,61,0.12);color:var(--accent-manhwa);}
-#sync-bar.ok{background:rgba(107,203,119,0.12);color:var(--accent-manhua);}
-#sync-bar.err{background:rgba(255,107,107,0.12);color:var(--accent-manga);}
+#sync-bar.syncing{background:rgba(255,107,157,0.12);color:var(--accent-kdrama);}
+#sync-bar.ok{background:rgba(107,203,119,0.12);color:#6bcb77;}
+#sync-bar.err{background:rgba(255,107,107,0.12);color:var(--accent-kdrama);}
 .sync-dot{width:6px;height:6px;border-radius:50%;background:currentColor;animation:pulse 1.2s infinite;}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
 
@@ -41,7 +41,7 @@ header{padding:calc(var(--safe-top) + 14px) 22px 14px;display:flex;align-items:c
 .logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:3px;background:linear-gradient(135deg,#ff6b6b,#ffd93d,#6bcb77,#4ecdc4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .logo span{font-size:0.55rem;display:block;letter-spacing:5px;font-family:'Nunito',sans-serif;color:var(--muted);-webkit-text-fill-color:var(--muted);}
 .header-right{display:flex;gap:8px;align-items:center;}
-.header-btn{padding:8px 14px;background:linear-gradient(135deg,var(--accent-manga),#ff8e53);border:none;border-radius:9px;color:#fff;font-family:'Nunito',sans-serif;font-weight:800;font-size:0.8rem;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+.header-btn{padding:8px 14px;background:linear-gradient(135deg,var(--accent-kdrama),#ff8eb3);border:none;border-radius:9px;color:#fff;font-family:'Nunito',sans-serif;font-weight:800;font-size:0.8rem;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
 .header-btn:active{transform:scale(0.96);}
 .btn-settings{padding:8px 10px;background:var(--surface);border:1.5px solid var(--border);border-radius:9px;color:var(--muted);font-size:0.9rem;cursor:pointer;transition:all 0.2s;}
 .btn-settings:active{transform:scale(0.96);}
@@ -49,7 +49,7 @@ header{padding:calc(var(--safe-top) + 14px) 22px 14px;display:flex;align-items:c
 /* SECTION TABS */
 .section-tabs{display:flex;border-bottom:2px solid var(--border);background:var(--surface);}
 .section-tab{flex:1;padding:12px 8px;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:0.88rem;letter-spacing:1.5px;cursor:pointer;color:var(--muted);border:none;background:transparent;transition:all 0.2s;border-bottom:3px solid transparent;margin-bottom:-2px;}
-.section-tab[data-s="manga-section"].active{border-bottom-color:var(--accent-manga);color:var(--accent-manga);}
+.section-tab[data-s="kdrama-section"].active{border-bottom-color:var(--accent-kdrama);color:var(--accent-kdrama);}
 .section-tab[data-s="anime-section"].active{border-bottom-color:var(--accent-anime);color:var(--accent-anime);}
 
 /* FILTER TABS */
@@ -58,9 +58,11 @@ header{padding:calc(var(--safe-top) + 14px) 22px 14px;display:flex;align-items:c
 .tab{padding:6px 13px;border-radius:50px;border:1.5px solid var(--border);background:transparent;color:var(--muted);font-family:'Nunito',sans-serif;font-weight:700;font-size:0.75rem;cursor:pointer;transition:all 0.2s;white-space:nowrap;display:flex;align-items:center;gap:4px;}
 .tab .count{background:var(--border);color:var(--muted);border-radius:50px;padding:1px 6px;font-size:0.66rem;transition:all 0.2s;}
 .tab.active{color:#fff;border-color:currentColor;}
-.tab[data-type="manga"].active{color:var(--accent-manga);background:rgba(255,107,107,0.08);}
-.tab[data-type="manhwa"].active{color:var(--accent-manhwa);background:rgba(255,217,61,0.08);}
-.tab[data-type="manhua"].active{color:var(--accent-manhua);background:rgba(107,203,119,0.08);}
+.tab[data-type="todos-k"].active{color:var(--accent-kdrama);background:rgba(255,107,157,0.08);}
+.tab[data-type="serie-k"].active{color:var(--accent-kdrama2);background:rgba(255,217,61,0.08);}
+.tab[data-type="tvshow"].active{color:var(--accent-kdrama3);background:rgba(192,132,252,0.08);}
+.tab[data-type="pelicula-k"].active{color:#f9a825;background:rgba(249,168,37,0.08);}
+.tab[data-type="kcompletado"].active{color:var(--purple);background:rgba(167,139,250,0.08);}
 .tab[data-type="completado"].active,.tab[data-type="acompletado"].active{color:var(--purple);background:rgba(167,139,250,0.08);}
 .tab[data-type="serie"].active{color:var(--accent-anime);background:rgba(78,205,196,0.08);}
 .tab[data-type="pelicula"].active{color:#f9a825;background:rgba(249,168,37,0.08);}
@@ -71,7 +73,7 @@ header{padding:calc(var(--safe-top) + 14px) 22px 14px;display:flex;align-items:c
 main{padding:18px 18px calc(var(--safe-bottom) + 18px);flex:1;}
 .toolbar{display:flex;gap:8px;margin-bottom:14px;}
 .search-box{flex:1;background:var(--card);border:1.5px solid var(--border);border-radius:9px;padding:9px 13px;color:var(--text);font-family:'Nunito',sans-serif;font-size:0.85rem;outline:none;transition:border-color 0.2s;-webkit-appearance:none;}
-.search-box:focus{border-color:var(--accent-manga);}
+.search-box:focus{border-color:var(--accent-kdrama);}
 .search-box::placeholder{color:var(--muted);}
 #anime-section .search-box:focus{border-color:var(--accent-anime);}
 
@@ -89,9 +91,9 @@ main{padding:18px 18px calc(var(--safe-bottom) + 18px);flex:1;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
 
 .card-type-bar{height:3px;}
-.card[data-type="manga"] .card-type-bar{background:var(--accent-manga);}
-.card[data-type="manhwa"] .card-type-bar{background:var(--accent-manhwa);}
-.card[data-type="manhua"] .card-type-bar{background:var(--accent-manhua);}
+.card[data-type="kdrama"][data-kdrama-sub="serie"] .card-type-bar{background:var(--accent-kdrama);}
+.card[data-type="kdrama"][data-kdrama-sub="tvshow"] .card-type-bar{background:var(--accent-kdrama3);}
+.card[data-type="kdrama"][data-kdrama-sub="pelicula"] .card-type-bar{background:#f9a825;}
 .card[data-anime-sub="serie"] .card-type-bar{background:var(--accent-anime);}
 .card[data-anime-sub="pelicula"] .card-type-bar{background:#f9a825;}
 .card[data-anime-sub="ova"] .card-type-bar{background:#e040fb;}
@@ -117,9 +119,9 @@ main{padding:18px 18px calc(var(--safe-bottom) + 18px);flex:1;}
 /* Card body */
 .card-body{padding:7px 8px 9px;}
 .card-badge{display:inline-block;padding:1px 6px;border-radius:50px;font-size:0.57rem;font-weight:800;letter-spacing:.5px;text-transform:uppercase;margin-bottom:3px;}
-[data-type="manga"] .card-badge{background:rgba(255,107,107,0.15);color:var(--accent-manga);}
-[data-type="manhwa"] .card-badge{background:rgba(255,217,61,0.15);color:var(--accent-manhwa);}
-[data-type="manhua"] .card-badge{background:rgba(107,203,119,0.15);color:var(--accent-manhua);}
+[data-type="kdrama"][data-kdrama-sub="serie"] .card-badge{background:rgba(255,107,157,0.15);color:var(--accent-kdrama);}
+[data-type="kdrama"][data-kdrama-sub="tvshow"] .card-badge{background:rgba(192,132,252,0.15);color:var(--accent-kdrama3);}
+[data-type="kdrama"][data-kdrama-sub="pelicula"] .card-badge{background:rgba(249,168,37,0.15);color:#f9a825;}
 [data-anime-sub="serie"] .card-badge{background:rgba(78,205,196,0.15);color:var(--accent-anime);}
 [data-anime-sub="pelicula"] .card-badge{background:rgba(249,168,37,0.15);color:#f9a825;}
 [data-anime-sub="ova"] .card-badge{background:rgba(224,64,251,0.15);color:#e040fb;}
@@ -133,9 +135,6 @@ main{padding:18px 18px calc(var(--safe-bottom) + 18px);flex:1;}
 
 .mini-progress{height:3px;background:var(--surface);border-radius:50px;overflow:hidden;margin-bottom:4px;}
 .mini-fill{height:100%;border-radius:50px;transition:width 0.4s;}
-[data-type="manga"] .mini-fill{background:var(--accent-manga);}
-[data-type="manhwa"] .mini-fill{background:var(--accent-manhwa);}
-[data-type="manhua"] .mini-fill{background:var(--accent-manhua);}
 [data-anime-sub="serie"] .mini-fill{background:var(--accent-anime);}
 [data-anime-sub="pelicula"] .mini-fill{background:#f9a825;}
 [data-anime-sub="ova"] .mini-fill{background:#e040fb;}
@@ -175,8 +174,9 @@ main{padding:18px 18px calc(var(--safe-bottom) + 18px);flex:1;}
 .form-group.full{grid-column:1/-1;}
 label{font-size:0.68rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;}
 input,select{background:var(--surface);border:1.5px solid var(--border);border-radius:8px;padding:9px 11px;color:var(--text);font-family:'Nunito',sans-serif;font-size:0.85rem;outline:none;transition:border-color 0.2s;width:100%;-webkit-appearance:none;}
-input:focus,select:focus{border-color:var(--accent-manga);}
+input:focus,select:focus{border-color:var(--accent-kdrama);}
 #anime-modal input:focus,#anime-modal select:focus{border-color:var(--accent-anime);}
+#kdrama-modal input:focus,#kdrama-modal select:focus{border-color:var(--accent-kdrama);}
 select option{background:var(--card);}
 
 .form-stars{display:flex;gap:4px;}
@@ -185,7 +185,7 @@ select option{background:var(--card);}
 
 /* Genre pills input */
 .genre-input-wrap{background:var(--surface);border:1.5px solid var(--border);border-radius:8px;padding:6px 8px;display:flex;flex-wrap:wrap;gap:4px;align-items:center;min-height:42px;cursor:text;transition:border-color 0.2s;}
-.genre-input-wrap:focus-within{border-color:var(--accent-manga);}
+.genre-input-wrap:focus-within{border-color:var(--accent-kdrama);}
 #anime-modal .genre-input-wrap:focus-within{border-color:var(--accent-anime);}
 .genre-pill{display:flex;align-items:center;gap:2px;background:var(--border);border-radius:50px;padding:2px 8px 2px 9px;font-size:0.7rem;font-weight:700;}
 .genre-pill .rm{cursor:pointer;font-size:0.85rem;color:var(--muted);line-height:1;background:none;border:none;color:inherit;opacity:0.7;padding:0;}
@@ -194,13 +194,13 @@ select option{background:var(--card);}
 
 /* Image upload */
 .img-upload-area{border:2px dashed var(--border);border-radius:9px;padding:14px;text-align:center;cursor:pointer;transition:all 0.2s;background:var(--surface);}
-.img-upload-area:active{border-color:var(--accent-manga);background:rgba(255,107,107,0.04);}
+.img-upload-area:active{border-color:var(--accent-kdrama);background:rgba(255,107,157,0.04);}
 .img-upload-area .ico{font-size:1.5rem;}
 .img-upload-area p{font-size:0.7rem;color:var(--muted);margin-top:3px;}
 .preview-img{width:100%;max-height:110px;object-fit:cover;border-radius:8px;margin-top:7px;display:none;}
 input[type="file"]{display:none;}
 
-.btn-submit{width:100%;padding:12px;background:linear-gradient(135deg,var(--accent-manga),#ff8e53);border:none;border-radius:10px;color:#fff;font-family:'Nunito',sans-serif;font-weight:800;font-size:0.9rem;cursor:pointer;transition:all 0.2s;margin-top:14px;}
+.btn-submit{width:100%;padding:12px;background:linear-gradient(135deg,var(--accent-kdrama),#ff8eb3);border:none;border-radius:10px;color:#fff;font-family:'Nunito',sans-serif;font-weight:800;font-size:0.9rem;cursor:pointer;transition:all 0.2s;margin-top:14px;}
 .btn-submit:active{transform:scale(0.98);}
 .btn-submit.anime-mode{background:linear-gradient(135deg,var(--accent-anime),#2eb8ae);}
 
@@ -215,9 +215,9 @@ input[type="file"]{display:none;}
 .settings-input:focus{border-color:var(--accent-anime);}
 .btn-save-settings{width:100%;padding:11px;background:linear-gradient(135deg,var(--accent-anime),#2eb8ae);border:none;border-radius:9px;color:#fff;font-family:'Nunito',sans-serif;font-weight:800;font-size:0.88rem;cursor:pointer;margin-top:4px;}
 .btn-export{width:100%;padding:10px;background:var(--surface);border:1.5px solid var(--border);border-radius:9px;color:var(--text);font-family:'Nunito',sans-serif;font-weight:700;font-size:0.85rem;cursor:pointer;margin-bottom:8px;}
-.btn-import{width:100%;padding:10px;background:var(--surface);border:1.5px solid var(--accent-manhwa);border-radius:9px;color:var(--accent-manhwa);font-family:'Nunito',sans-serif;font-weight:700;font-size:0.85rem;cursor:pointer;}
+.btn-import{width:100%;padding:10px;background:var(--surface);border:1.5px solid var(--accent-kdrama);border-radius:9px;color:var(--accent-kdrama);font-family:'Nunito',sans-serif;font-weight:700;font-size:0.85rem;cursor:pointer;}
 .sync-status-box{background:var(--surface);border-radius:8px;padding:10px 12px;font-size:0.75rem;margin-bottom:10px;border:1.5px solid var(--border);}
-.sync-status-box.connected{border-color:rgba(107,203,119,0.4);color:var(--accent-manhua);}
+.sync-status-box.connected{border-color:rgba(107,203,119,0.4);color:#6bcb77;}
 .sync-status-box.disconnected{border-color:var(--border);color:var(--muted);}
 
 /* Scrollbar */
@@ -256,7 +256,7 @@ input[type="file"]{display:none;}
 </div>
 
 <header>
-  <div class="logo">OTAKU TRACKER<span>MANGA · MANHWA · MANHUA · ANIME</span></div>
+  <div class="logo">OTAKU TRACKER<span>KDRAMAS · ANIME</span></div>
   <div class="header-right">
     <button class="header-btn" id="main-add-btn" onclick="openModal()">+ Agregar</button>
     <button class="btn-settings" onclick="openSettings()" title="Configuración">⚙️</button>
@@ -265,23 +265,23 @@ input[type="file"]{display:none;}
 
 <!-- SECTION TABS -->
 <div class="section-tabs">
-  <button class="section-tab active" data-s="manga-section" onclick="setSection(this)">📚 Manga / Manhwa / Manhua</button>
+  <button class="section-tab active" data-s="kdrama-section" onclick="setSection(this)">🎭 Kdramas</button>
   <button class="section-tab" data-s="anime-section" onclick="setSection(this)">🎌 Anime</button>
 </div>
 
-<!-- MANGA SECTION -->
-<div id="manga-section" class="section active">
-  <div class="tabs" id="manga-tabs">
-    <button class="tab active" data-type="todos" onclick="setTab(this,'manga')">📚 Todos <span class="count" id="mc-todos">0</span></button>
-    <button class="tab" data-type="manga" onclick="setTab(this,'manga')">🇯🇵 Manga <span class="count" id="mc-manga">0</span></button>
-    <button class="tab" data-type="manhwa" onclick="setTab(this,'manga')">🇰🇷 Manhwa <span class="count" id="mc-manhwa">0</span></button>
-    <button class="tab" data-type="manhua" onclick="setTab(this,'manga')">🇨🇳 Manhua <span class="count" id="mc-manhua">0</span></button>
-    <button class="tab" data-type="completado" onclick="setTab(this,'manga')">✅ Completado <span class="count" id="mc-completado">0</span></button>
+<!-- KDRAMA SECTION -->
+<div id="kdrama-section" class="section active">
+  <div class="tabs" id="kdrama-tabs">
+    <button class="tab active" data-type="todos-k" onclick="setTab(this,'kdrama')">🎭 Todos <span class="count" id="kc-todos">0</span></button>
+    <button class="tab" data-type="serie-k" onclick="setTab(this,'kdrama')">📺 Serie <span class="count" id="kc-serie">0</span></button>
+    <button class="tab" data-type="tvshow" onclick="setTab(this,'kdrama')">📡 TV Show <span class="count" id="kc-tvshow">0</span></button>
+    <button class="tab" data-type="pelicula-k" onclick="setTab(this,'kdrama')">🎬 Película <span class="count" id="kc-pelicula">0</span></button>
+    <button class="tab" data-type="kcompletado" onclick="setTab(this,'kdrama')">✅ Completado <span class="count" id="kc-completado">0</span></button>
   </div>
   <main>
-    <div class="toolbar"><input class="search-box" id="manga-search" type="text" placeholder="🔍 Buscar..." oninput="renderManga()"></div>
-    <div class="stats-banner" id="manga-stats"></div>
-    <div class="grid" id="manga-grid"></div>
+    <div class="toolbar"><input class="search-box" id="kdrama-search" type="text" placeholder="🔍 Buscar kdrama..." oninput="renderKdrama()"></div>
+    <div class="stats-banner" id="kdrama-stats"></div>
+    <div class="grid" id="kdrama-grid"></div>
   </main>
 </div>
 
@@ -301,57 +301,47 @@ input[type="file"]{display:none;}
   </main>
 </div>
 
-<!-- MANGA MODAL -->
-<div class="modal-overlay" id="manga-modal" onclick="closeMBg(event)">
+<!-- KDRAMA MODAL -->
+<div class="modal-overlay" id="kdrama-modal" onclick="closeKBg(event)">
   <div class="modal">
     <div class="modal-handle"></div>
     <div class="modal-header">
-      <div class="modal-title" id="manga-modal-title">Nueva Entrada</div>
-      <button class="btn-close" onclick="closeMangaModal()">✕</button>
+      <div class="modal-title" id="kdrama-modal-title">Nuevo Kdrama</div>
+      <button class="btn-close" onclick="closeKdramaModal()">✕</button>
     </div>
     <div class="form-group full" style="margin-bottom:10px;">
       <label>Portada</label>
-      <div class="img-upload-area" onclick="document.getElementById('mFileInput').click()">
+      <div class="img-upload-area" onclick="document.getElementById('kFileInput').click()">
         <div class="ico">🖼️</div><p>Toca para subir imagen</p>
       </div>
-      <input type="file" id="mFileInput" accept="image/*" onchange="handleImg(event,'m')">
-      <img id="mPreviewImg" class="preview-img">
+      <input type="file" id="kFileInput" accept="image/*" onchange="handleImg(event,'k')">
+      <img id="kPreviewImg" class="preview-img">
     </div>
     <div class="form-grid">
       <div class="form-group">
         <label>Tipo</label>
-        <select id="mf-type">
-          <option value="manga">🇯🇵 Manga</option>
-          <option value="manhwa">🇰🇷 Manhwa</option>
-          <option value="manhua">🇨🇳 Manhua</option>
+        <select id="kf-subtype">
+          <option value="serie">📺 Serie</option>
+          <option value="tvshow">📡 TV Show</option>
+          <option value="pelicula">🎬 Película</option>
         </select>
       </div>
       <div class="form-group">
         <label>Calificación</label>
-        <div class="form-stars" id="m-form-stars">
-          <span class="form-star" data-v="1" onclick="setStar('m',1)">★</span>
-          <span class="form-star" data-v="2" onclick="setStar('m',2)">★</span>
-          <span class="form-star" data-v="3" onclick="setStar('m',3)">★</span>
-          <span class="form-star" data-v="4" onclick="setStar('m',4)">★</span>
-          <span class="form-star" data-v="5" onclick="setStar('m',5)">★</span>
+        <div class="form-stars" id="k-form-stars">
+          <span class="form-star" data-v="1" onclick="setStar('k',1)">★</span>
+          <span class="form-star" data-v="2" onclick="setStar('k',2)">★</span>
+          <span class="form-star" data-v="3" onclick="setStar('k',3)">★</span>
+          <span class="form-star" data-v="4" onclick="setStar('k',4)">★</span>
+          <span class="form-star" data-v="5" onclick="setStar('k',5)">★</span>
         </div>
       </div>
-      <div class="form-group full"><label>Título en Español</label><input type="text" id="mf-title-es" placeholder="Título en español"></div>
-      <div class="form-group full"><label>Título en Inglés</label><input type="text" id="mf-title-en" placeholder="Title in English"></div>
-      <div class="form-group"><label>Capítulo Actual</label><input type="number" id="mf-chapter" placeholder="0" min="0"></div>
-      <div class="form-group"><label>% en Capítulo</label><input type="number" id="mf-pct" placeholder="0" min="0" max="100"></div>
-      <div class="form-group"><label>Temporada</label><input type="number" id="mf-season" placeholder="1" min="1"></div>
-      <div class="form-group"><label>Dónde lo leí</label><input type="text" id="mf-where" placeholder="MangaDex, etc."></div>
-      <div class="form-group"><label>Fecha Inicio</label><input type="date" id="mf-start"></div>
-      <div class="form-group"><label>Fecha Término</label><input type="date" id="mf-end"></div>
-      <div class="form-group full">
-        <label>Géneros (Enter o coma para agregar)</label>
-        <div class="genre-input-wrap" id="m-genre-wrap" onclick="document.getElementById('m-genre-input').focus()">
-          <input class="genre-text-input" id="m-genre-input" placeholder="Acción, Romance..." onkeydown="addGenre(event,'m')">
-        </div>
-      </div>
+      <div class="form-group full"><label>Título en Español</label><input type="text" id="kf-title-es" placeholder="Título en español"></div>
+      <div class="form-group"><label>Año</label><input type="number" id="kf-year" placeholder="2024" min="1990" max="2100"></div>
+      <div class="form-group"><label>Capítulo / Episodio</label><input type="number" id="kf-chapter" placeholder="0" min="0"></div>
+      <div class="form-group full"><label>Plataforma</label><input type="text" id="kf-where" placeholder="Netflix, Viki, Disney+..."></div>
     </div>
-    <button class="btn-submit" onclick="saveManga()">💾 Guardar</button>
+    <button class="btn-submit" onclick="saveKdrama()">💾 Guardar Kdrama</button>
   </div>
 </div>
 
@@ -391,18 +381,9 @@ input[type="file"]{display:none;}
         </div>
       </div>
       <div class="form-group full"><label>Título en Español</label><input type="text" id="af-title-es" placeholder="Título en español"></div>
-      <div class="form-group full"><label>Título en Inglés</label><input type="text" id="af-title-en" placeholder="Title in English"></div>
       <div class="form-group"><label>Año</label><input type="number" id="af-year" placeholder="2024" min="1960" max="2100"></div>
-      <div class="form-group"><label>Temporada</label><input type="number" id="af-season" placeholder="1" min="1"></div>
-      <div class="form-group"><label>Episodio Actual</label><input type="number" id="af-chapter" placeholder="0" min="0"></div>
-      <div class="form-group"><label>% en Episodio</label><input type="number" id="af-pct" placeholder="0" min="0" max="100"></div>
+      <div class="form-group full"><label>Episodio Actual</label><input type="number" id="af-chapter" placeholder="0" min="0"></div>
       <div class="form-group full"><label>Dónde lo vi</label><input type="text" id="af-where" placeholder="Crunchyroll, Netflix..."></div>
-      <div class="form-group full">
-        <label>Géneros (Enter o coma para agregar)</label>
-        <div class="genre-input-wrap" id="a-genre-wrap" onclick="document.getElementById('a-genre-input').focus()">
-          <input class="genre-text-input" id="a-genre-input" placeholder="Acción, Shonen..." onkeydown="addGenre(event,'a')">
-        </div>
-      </div>
     </div>
     <button class="btn-submit anime-mode" onclick="saveAnime()">💾 Guardar Anime</button>
   </div>
@@ -462,14 +443,13 @@ input[type="file"]{display:none;}
 // ══════════════════════════════════════════════
 // STATE
 // ══════════════════════════════════════════════
-let mangas = JSON.parse(localStorage.getItem('ot-mangas3')||'[]');
+let kdramas = JSON.parse(localStorage.getItem('ot-kdramas1')||'[]');
 let animes = JSON.parse(localStorage.getItem('ot-animes3')||'[]');
-let mTab='todos', aTab='todos';
-let mEditId=null, aEditId=null;
-let mStar=0, aStar=0;
-let mImg=null, aImg=null;
-let mGenres=[], aGenres=[];
-let curSection='manga';
+let kTab='todos-k', aTab='todos';
+let kEditId=null, aEditId=null;
+let kStar=0, aStar=0;
+let kImg=null, aImg=null;
+let curSection='kdrama';
 
 // Supabase config
 let SUPA_URL = localStorage.getItem('ot-supa-url')||'';
@@ -482,7 +462,7 @@ let supaConnected = false;
 function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2); }
 
 function saveLocal(){
-  try{ localStorage.setItem('ot-mangas3', JSON.stringify(mangas)); }catch(e){}
+  try{ localStorage.setItem('ot-kdramas1', JSON.stringify(kdramas)); }catch(e){}
   try{ localStorage.setItem('ot-animes3', JSON.stringify(animes)); }catch(e){}
 }
 
@@ -522,23 +502,20 @@ async function supaFetch(path, method='GET', body=null){
 async function initSupabase(){
   if(!SUPA_URL||!SUPA_KEY){ updateSyncStatus(false); return; }
   showSyncBar('syncing','Conectando con Supabase...');
-  // Test connection by fetching data
-  const mData = await supaFetch('otaku_mangas?select=*&order=created_at.desc');
+  const kData = await supaFetch('otaku_kdramas?select=*&order=created_at.desc');
   const aData = await supaFetch('otaku_animes?select=*&order=created_at.desc');
-  if(mData===null && aData===null){ showSyncBar('err','Error al conectar con Supabase'); updateSyncStatus(false); return; }
+  if(kData===null && aData===null){ showSyncBar('err','Error al conectar con Supabase'); updateSyncStatus(false); return; }
   supaConnected = true;
   updateSyncStatus(true);
-  // Merge: remote wins for new items, keep local images
-  if(mData && mData.length > 0){
-    const localById = Object.fromEntries(mangas.map(m=>[m.id,m]));
-    const merged = mData.map(remote=>{
+  if(kData && kData.length > 0){
+    const localById = Object.fromEntries(kdramas.map(m=>[m.id,m]));
+    const merged = kData.map(remote=>{
       const local = localById[remote.id];
       return { ...remote, img: local?.img || remote.img || null };
     });
-    // Add local-only items (not yet synced)
-    const remoteIds = new Set(mData.map(r=>r.id));
-    mangas.filter(m=>!remoteIds.has(m.id)).forEach(m=>merged.push(m));
-    mangas = merged;
+    const remoteIds = new Set(kData.map(r=>r.id));
+    kdramas.filter(m=>!remoteIds.has(m.id)).forEach(m=>merged.push(m));
+    kdramas = merged;
   }
   if(aData && aData.length > 0){
     const localById = Object.fromEntries(animes.map(a=>[a.id,a]));
@@ -551,7 +528,7 @@ async function initSupabase(){
     animes = merged;
   }
   saveLocal();
-  renderManga(); renderAnime();
+  renderKdrama(); renderAnime();
   showSyncBar('ok','✓ Sincronizado con Supabase');
 }
 
@@ -606,11 +583,11 @@ function saveSupabaseConfig(){
 }
 
 function exportData(){
-  const data = { mangas, animes, exported: new Date().toISOString() };
+  const data = { kdramas, animes, exported: new Date().toISOString() };
   const blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.href=url; a.download='otaku-tracker-backup.json'; a.click();
+  a.href=url; a.download='tracker-backup.json'; a.click();
   URL.revokeObjectURL(url);
 }
 
@@ -620,10 +597,10 @@ function importData(e){
   r.onload = ev => {
     try{
       const data = JSON.parse(ev.target.result);
-      if(data.mangas) mangas = data.mangas;
+      if(data.kdramas) kdramas = data.kdramas;
       if(data.animes) animes = data.animes;
       saveLocal();
-      renderManga(); renderAnime();
+      renderKdrama(); renderAnime();
       alert('✓ Datos importados correctamente');
     }catch(err){ alert('Error al importar: archivo inválido'); }
   };
@@ -639,21 +616,21 @@ function setSection(el){
   el.classList.add('active');
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   document.getElementById(el.dataset.s).classList.add('active');
-  curSection = el.dataset.s==='anime-section'?'anime':'manga';
+  curSection = el.dataset.s==='anime-section'?'anime':'kdrama';
   const btn=document.getElementById('main-add-btn');
-  btn.textContent = curSection==='anime'?'+ Agregar Anime':'+ Agregar';
+  btn.textContent = curSection==='anime'?'+ Agregar Anime':'+ Agregar Kdrama';
   btn.style.background = curSection==='anime'
     ? 'linear-gradient(135deg,#4ecdc4,#2eb8ae)'
-    : 'linear-gradient(135deg,#ff6b6b,#ff8e53)';
+    : 'linear-gradient(135deg,#ff6b9d,#ff8eb3)';
 }
 
-function openModal(){ curSection==='anime'?openAnimeModal():openMangaModal(); }
+function openModal(){ curSection==='anime'?openAnimeModal():openKdramaModal(); }
 
 function setTab(el,sec){
-  const container=sec==='manga'?document.getElementById('manga-tabs'):document.getElementById('anime-tabs');
+  const container=sec==='kdrama'?document.getElementById('kdrama-tabs'):document.getElementById('anime-tabs');
   container.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   el.classList.add('active');
-  if(sec==='manga'){mTab=el.dataset.type;renderManga();}
+  if(sec==='kdrama'){kTab=el.dataset.type;renderKdrama();}
   else{aTab=el.dataset.type;renderAnime();}
 }
 
@@ -661,7 +638,8 @@ function setTab(el,sec){
 // STARS / IMG / GENRES
 // ══════════════════════════════════════════════
 function setStar(p,n){
-  if(p==='m') mStar=n; else aStar=n;
+  if(p==='k') kStar=n;
+  else if(p==='a') aStar=n;
   document.querySelectorAll(`#${p}-form-stars .form-star`).forEach(s=>{
     s.classList.toggle('active', parseInt(s.dataset.v)<=n);
   });
@@ -671,7 +649,7 @@ function handleImg(e,p){
   const file=e.target.files[0]; if(!file) return;
   const r=new FileReader();
   r.onload=ev=>{
-    if(p==='m'){mImg=ev.target.result;showPrev('mPreviewImg',mImg);}
+    if(p==='k'){kImg=ev.target.result;showPrev('kPreviewImg',kImg);}
     else{aImg=ev.target.result;showPrev('aPreviewImg',aImg);}
   };
   r.readAsDataURL(file);
@@ -685,137 +663,94 @@ function uploadCardImg(id,type,e){
     const file=ev.target.files[0]; if(!file) return;
     const r=new FileReader();
     r.onload=ev2=>{
-      if(type==='manga') mangas=mangas.map(x=>x.id===id?{...x,img:ev2.target.result}:x);
+      if(type==='kdrama') kdramas=kdramas.map(x=>x.id===id?{...x,img:ev2.target.result}:x);
       else animes=animes.map(x=>x.id===id?{...x,img:ev2.target.result}:x);
       saveLocal();
-      if(type==='manga') renderManga(); else renderAnime();
+      if(type==='kdrama') renderKdrama(); else renderAnime();
     };
     r.readAsDataURL(file);
   };
   inp.click();
 }
 
-function addGenre(e,p){
-  if(e.key==='Enter'||e.key===','){ e.preventDefault(); commitGenre(p); }
-  if(e.key==='Backspace'){
-    const inp=document.getElementById(`${p}-genre-input`);
-    if(inp.value===''){
-      if(p==='m'&&mGenres.length){ mGenres.pop(); renderGenrePills('m'); }
-      if(p==='a'&&aGenres.length){ aGenres.pop(); renderGenrePills('a'); }
-    }
-  }
-}
-function commitGenre(p){
-  const inp=document.getElementById(`${p}-genre-input`);
-  const val=inp.value.replace(/,/g,'').trim(); if(!val) return;
-  if(p==='m'&&!mGenres.includes(val)) mGenres.push(val);
-  if(p==='a'&&!aGenres.includes(val)) aGenres.push(val);
-  inp.value=''; renderGenrePills(p);
-}
-function removeGenre(p,i){
-  if(p==='m') mGenres.splice(i,1); else aGenres.splice(i,1);
-  renderGenrePills(p);
-}
-function renderGenrePills(p){
-  const wrap=document.getElementById(`${p}-genre-wrap`);
-  const inp=document.getElementById(`${p}-genre-input`);
-  const genres=p==='m'?mGenres:aGenres;
-  wrap.querySelectorAll('.genre-pill').forEach(el=>el.remove());
-  genres.forEach((g,i)=>{
-    const pill=document.createElement('span'); pill.className='genre-pill';
-    pill.innerHTML=`${g}<button class="rm" onclick="removeGenre('${p}',${i})">×</button>`;
-    wrap.insertBefore(pill,inp);
-  });
-}
-function setGenres(p,arr){
-  if(p==='m') mGenres=[...arr]; else aGenres=[...arr];
-  renderGenrePills(p);
-}
-
 // ══════════════════════════════════════════════
-// MANGA MODAL
+// KDRAMA MODAL
 // ══════════════════════════════════════════════
-function resetMangaModal(){
-  mEditId=null;mImg=null;mStar=0;mGenres=[];
-  document.getElementById('mPreviewImg').style.display='none';
-  document.getElementById('mFileInput').value='';
-  document.querySelectorAll('#m-form-stars .form-star').forEach(s=>s.classList.remove('active'));
-  ['mf-title-es','mf-title-en','mf-chapter','mf-pct','mf-season','mf-where','mf-start','mf-end'].forEach(id=>{
+function resetKdramaModal(){
+  kEditId=null;kImg=null;kStar=0;
+  document.getElementById('kPreviewImg').style.display='none';
+  document.getElementById('kFileInput').value='';
+  document.querySelectorAll('#k-form-stars .form-star').forEach(s=>s.classList.remove('active'));
+  ['kf-title-es','kf-year','kf-chapter','kf-where'].forEach(id=>{
     const el=document.getElementById(id); if(el) el.value='';
   });
-  document.getElementById('mf-type').value='manga';
-  renderGenrePills('m');
+  document.getElementById('kf-subtype').value='serie';
 }
 
-function openMangaModal(id){
-  resetMangaModal();
+function openKdramaModal(id){
+  resetKdramaModal();
   if(id){
-    const e=mangas.find(x=>x.id===id); if(!e) return;
-    mEditId=id;
-    document.getElementById('manga-modal-title').textContent='Editar Entrada';
-    document.getElementById('mf-type').value=e.type;
-    document.getElementById('mf-title-es').value=e.titleEs;
-    document.getElementById('mf-title-en').value=e.titleEn||'';
-    document.getElementById('mf-chapter').value=e.chapter||0;
-    document.getElementById('mf-pct').value=e.pct||'';
-    document.getElementById('mf-season').value=e.season||'';
-    document.getElementById('mf-where').value=e.where||'';
-    document.getElementById('mf-start').value=e.start||'';
-    document.getElementById('mf-end').value=e.end||'';
-    setStar('m',e.rating||0);
-    if(e.img){mImg=e.img;showPrev('mPreviewImg',mImg);}
-    setGenres('m',e.genres||[]);
+    const e=kdramas.find(x=>x.id===id); if(!e) return;
+    kEditId=id;
+    document.getElementById('kdrama-modal-title').textContent='Editar Kdrama';
+    document.getElementById('kf-subtype').value=e.subtype||'serie';
+    document.getElementById('kf-title-es').value=e.titleEs;
+    document.getElementById('kf-year').value=e.year||'';
+    document.getElementById('kf-chapter').value=e.chapter||0;
+    document.getElementById('kf-where').value=e.where||'';
+    setStar('k',e.rating||0);
+    if(e.img){kImg=e.img;showPrev('kPreviewImg',kImg);}
   } else {
-    document.getElementById('manga-modal-title').textContent='Nueva Entrada';
+    document.getElementById('kdrama-modal-title').textContent='Nuevo Kdrama';
   }
-  document.getElementById('manga-modal').classList.add('open');
+  document.getElementById('kdrama-modal').classList.add('open');
 }
-function closeMangaModal(){ document.getElementById('manga-modal').classList.remove('open'); }
-function closeMBg(e){ if(e.target===document.getElementById('manga-modal')) closeMangaModal(); }
+function closeKdramaModal(){ document.getElementById('kdrama-modal').classList.remove('open'); }
+function closeKBg(e){ if(e.target===document.getElementById('kdrama-modal')) closeKdramaModal(); }
 
-async function saveManga(){
-  commitGenre('m');
-  const titleEs=document.getElementById('mf-title-es').value.trim();
-  if(!titleEs){alert('Ingresa el título en español');return;}
-  const now = new Date().toISOString();
+function toTitleCase(str){
+  return str.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+}
+
+async function saveKdrama(){
+  const rawTitle=document.getElementById('kf-title-es').value.trim();
+  if(!rawTitle){alert('Ingresa el título en español');return;}
+  const titleEs = toTitleCase(rawTitle);
+  const now=new Date().toISOString();
   const entry={
-    id:mEditId||uid(),
-    type:document.getElementById('mf-type').value,
-    titleEs, titleEn:document.getElementById('mf-title-en').value.trim(),
-    chapter:parseInt(document.getElementById('mf-chapter').value)||0,
-    pct:parseInt(document.getElementById('mf-pct').value)||0,
-    season:parseInt(document.getElementById('mf-season').value)||null,
-    where:document.getElementById('mf-where').value.trim(),
-    start:document.getElementById('mf-start').value,
-    end:document.getElementById('mf-end').value,
-    rating:mStar, img:mImg, genres:[...mGenres],
-    colorIdx: mEditId ? (mangas.find(x=>x.id===mEditId)?.colorIdx ?? randomColor()) : randomColor(),
-    completado:mEditId?(mangas.find(x=>x.id===mEditId)?.completado||false):false,
-    created_at: mEditId?(mangas.find(x=>x.id===mEditId)?.created_at||now):now,
+    id:kEditId||uid(), type:'kdrama',
+    subtype:document.getElementById('kf-subtype').value,
+    titleEs,
+    year:document.getElementById('kf-year').value||'',
+    chapter:parseInt(document.getElementById('kf-chapter').value)||0,
+    where:document.getElementById('kf-where').value.trim(),
+    rating:kStar, img:kImg,
+    colorIdx: kEditId ? (kdramas.find(x=>x.id===kEditId)?.colorIdx ?? randomColor()) : randomColor(),
+    completado:kEditId?(kdramas.find(x=>x.id===kEditId)?.completado||false):false,
+    created_at: kEditId?(kdramas.find(x=>x.id===kEditId)?.created_at||now):now,
     updated_at: now
   };
-  if(mEditId) mangas=mangas.map(x=>x.id===mEditId?entry:x);
-  else mangas.unshift(entry);
-  saveLocal(); closeMangaModal(); renderManga();
-  await syncToCloud('otaku_mangas', entry);
+  if(kEditId) kdramas=kdramas.map(x=>x.id===kEditId?entry:x);
+  else kdramas.unshift(entry);
+  saveLocal(); closeKdramaModal(); renderKdrama();
+  await syncToCloud('otaku_kdramas', entry);
 }
 
-function deleteManga(id,e){ if(e)e.stopPropagation(); if(!confirm('¿Eliminar?')) return; mangas=mangas.filter(x=>x.id!==id); saveLocal(); renderManga(); deleteFromCloud('otaku_mangas',id); }
-function toggleMangaComplete(id,e){ if(e)e.stopPropagation(); mangas=mangas.map(x=>x.id===id?{...x,completado:!x.completado,updated_at:new Date().toISOString()}:x); saveLocal(); renderManga(); const entry=mangas.find(x=>x.id===id); if(entry) syncToCloud('otaku_mangas',entry); }
+function deleteKdrama(id,e){ if(e)e.stopPropagation(); if(!confirm('¿Eliminar?')) return; kdramas=kdramas.filter(x=>x.id!==id); saveLocal(); renderKdrama(); deleteFromCloud('otaku_kdramas',id); }
+function toggleKdramaComplete(id,e){ if(e)e.stopPropagation(); kdramas=kdramas.map(x=>x.id===id?{...x,completado:!x.completado,updated_at:new Date().toISOString()}:x); saveLocal(); renderKdrama(); const entry=kdramas.find(x=>x.id===id); if(entry) syncToCloud('otaku_kdramas',entry); }
 
 // ══════════════════════════════════════════════
 // ANIME MODAL
 // ══════════════════════════════════════════════
 function resetAnimeModal(){
-  aEditId=null;aImg=null;aStar=0;aGenres=[];
+  aEditId=null;aImg=null;aStar=0;
   document.getElementById('aPreviewImg').style.display='none';
   document.getElementById('aFileInput').value='';
   document.querySelectorAll('#a-form-stars .form-star').forEach(s=>s.classList.remove('active'));
-  ['af-title-es','af-title-en','af-year','af-chapter','af-pct','af-season','af-where'].forEach(id=>{
+  ['af-title-es','af-year','af-chapter','af-where'].forEach(id=>{
     const el=document.getElementById(id); if(el) el.value='';
   });
   document.getElementById('af-subtype').value='serie';
-  renderGenrePills('a');
 }
 
 function openAnimeModal(id){
@@ -826,15 +761,11 @@ function openAnimeModal(id){
     document.getElementById('anime-modal-title').textContent='Editar Anime';
     document.getElementById('af-subtype').value=e.subtype||'serie';
     document.getElementById('af-title-es').value=e.titleEs;
-    document.getElementById('af-title-en').value=e.titleEn||'';
     document.getElementById('af-year').value=e.year||'';
     document.getElementById('af-chapter').value=e.chapter||0;
-    document.getElementById('af-pct').value=e.pct||'';
-    document.getElementById('af-season').value=e.season||'';
     document.getElementById('af-where').value=e.where||'';
     setStar('a',e.rating||0);
     if(e.img){aImg=e.img;showPrev('aPreviewImg',aImg);}
-    setGenres('a',e.genres||[]);
   } else {
     document.getElementById('anime-modal-title').textContent='Nuevo Anime';
   }
@@ -844,20 +775,17 @@ function closeAnimeModal(){ document.getElementById('anime-modal').classList.rem
 function closeABg(e){ if(e.target===document.getElementById('anime-modal')) closeAnimeModal(); }
 
 async function saveAnime(){
-  commitGenre('a');
   const titleEs=document.getElementById('af-title-es').value.trim();
   if(!titleEs){alert('Ingresa el título en español');return;}
   const now=new Date().toISOString();
   const entry={
     id:aEditId||uid(), type:'anime',
     subtype:document.getElementById('af-subtype').value,
-    titleEs, titleEn:document.getElementById('af-title-en').value.trim(),
+    titleEs,
     year:document.getElementById('af-year').value||'',
     chapter:parseInt(document.getElementById('af-chapter').value)||0,
-    pct:parseInt(document.getElementById('af-pct').value)||0,
-    season:parseInt(document.getElementById('af-season').value)||null,
     where:document.getElementById('af-where').value.trim(),
-    rating:aStar, img:aImg, genres:[...aGenres],
+    rating:aStar, img:aImg,
     colorIdx: aEditId ? (animes.find(x=>x.id===aEditId)?.colorIdx ?? randomColor()) : randomColor(),
     completado:aEditId?(animes.find(x=>x.id===aEditId)?.completado||false):false,
     created_at:aEditId?(animes.find(x=>x.id===aEditId)?.created_at||now):now,
@@ -876,8 +804,8 @@ function toggleAnimeComplete(id,e){ if(e)e.stopPropagation(); animes=animes.map(
 // HELPERS
 // ══════════════════════════════════════════════
 function starsH(n){ return [1,2,3,4,5].map(i=>`<span class="mstar ${i<=n?'on':''}">★</span>`).join(''); }
-function typeEmoji(t){ return {manga:'🇯🇵',manhwa:'🇰🇷',manhua:'🇨🇳'}[t]||'📖'; }
 function subtypeLabel(s){ return {serie:'📺 Serie',pelicula:'🎬 Película',ova:'💿 OVA'}[s]||s; }
+function kdramaSubtypeLabel(s){ return {serie:'📺 Serie',tvshow:'📡 TV Show',pelicula:'🎬 Película'}[s]||s; }
 
 // Color aleatorio generado al crear la entrada y guardado en el objeto
 const PALETTE = [
@@ -904,41 +832,35 @@ function whereHTML(where, colorIdx){
 // ══════════════════════════════════════════════
 // CARD BUILDERS
 // ══════════════════════════════════════════════
-function mangaCard(e){
+function kdramaCard(e){
   const imgHTML = e.img
     ? `<img class="card-img" src="${e.img}" alt="">`
     : `<div class="card-img-placeholder"><span class="ico">📷</span><span class="ut">Subir portada</span></div>`;
-  const genresHTML = (e.genres&&e.genres.length)
-    ? `<div class="genres-row">${e.genres.slice(0,3).map(g=>`<span class="genre-tag">${g}</span>`).join('')}</div>` : '';
-  const seasonChip = e.season ? `<div class="cs"><div class="cl">Temp</div>${e.season}</div>` : '';
+  const yearChip = e.year ? `<div class="cs"><div class="cl">Año</div>${e.year}</div>` : '';
   if(e.colorIdx===undefined){e.colorIdx=randomColor();saveLocal();}
-  return `<div class="card" data-type="${e.type}" id="card-${e.id}">
+  return `<div class="card" data-type="kdrama" data-kdrama-sub="${e.subtype}" id="card-${e.id}">
     <div class="card-type-bar"></div>
-    <div class="card-img-wrap" onclick="uploadCardImg('${e.id}','manga',event)">
+    <div class="card-img-wrap" onclick="uploadCardImg('${e.id}','kdrama',event)">
       ${imgHTML}
       <div class="card-overlay">
         <div class="overlay-title">${e.titleEs}</div>
         <div class="overlay-actions">
-          <button class="oa-btn" onclick="openMangaModal('${e.id}');event.stopPropagation()">✏️</button>
-          <button class="oa-btn complete" onclick="toggleMangaComplete('${e.id}',event)">${e.completado?'↩':'✓'}</button>
-          <button class="oa-btn del" onclick="deleteManga('${e.id}',event)">🗑</button>
+          <button class="oa-btn" onclick="openKdramaModal('${e.id}');event.stopPropagation()">✏️</button>
+          <button class="oa-btn complete" onclick="toggleKdramaComplete('${e.id}',event)">${e.completado?'↩':'✓'}</button>
+          <button class="oa-btn del" onclick="deleteKdrama('${e.id}',event)">🗑</button>
         </div>
       </div>
     </div>
     ${e.completado?'<div class="completado-badge">✓</div>':''}
     <div class="card-body">
-      <span class="card-badge">${typeEmoji(e.type)} ${e.type}</span>
+      <span class="card-badge">${kdramaSubtypeLabel(e.subtype)}</span>
       <div class="card-title" style="color:${PALETTE[e.colorIdx!==undefined?e.colorIdx:0].text}">${e.titleEs}</div>
-      ${e.titleEn?`<div class="card-title-en">${e.titleEn}</div>`:''}
       <div class="card-stats">
         <div class="cs"><div class="cl">Cap</div>${e.chapter||0}</div>
-        <div class="cs"><div class="cl">%</div>${e.pct||0}%</div>
-        ${seasonChip}
+        ${yearChip}
       </div>
-      <div class="mini-progress"><div class="mini-fill" style="width:${e.pct||0}%;background:${PALETTE[e.colorIdx!==undefined?e.colorIdx:0].text}"></div></div>
       <div class="mini-stars">${starsH(e.rating||0)}</div>
       ${e.where?`<div class="where-pill" style="background:${PALETTE[e.colorIdx!==undefined?e.colorIdx:0].bg};border-color:${PALETTE[e.colorIdx!==undefined?e.colorIdx:0].border};color:${PALETTE[e.colorIdx!==undefined?e.colorIdx:0].text}">👁 ${e.where}</div>`:''}
-      ${genresHTML}
     </div>
   </div>`;
 }
@@ -947,9 +869,6 @@ function animeCard(e){
   const imgHTML = e.img
     ? `<img class="card-img" src="${e.img}" alt="">`
     : `<div class="card-img-placeholder"><span class="ico">📷</span><span class="ut">Subir portada</span></div>`;
-  const genresHTML = (e.genres&&e.genres.length)
-    ? `<div class="genres-row">${e.genres.slice(0,3).map(g=>`<span class="genre-tag">${g}</span>`).join('')}</div>` : '';
-  const seasonChip = e.season ? `<div class="cs"><div class="cl">Temp</div>${e.season}</div>` : '';
   const yearChip = e.year ? `<div class="cs"><div class="cl">Año</div>${e.year}</div>` : '';
   if(e.colorIdx===undefined){e.colorIdx=randomColor();saveLocal();}
   return `<div class="card" data-type="anime" data-anime-sub="${e.subtype}" id="card-${e.id}">
@@ -969,16 +888,12 @@ function animeCard(e){
     <div class="card-body">
       <span class="card-badge">${subtypeLabel(e.subtype)}</span>
       <div class="card-title" style="color:${PALETTE[e.colorIdx!==undefined?e.colorIdx:0].text}">${e.titleEs}</div>
-      ${e.titleEn?`<div class="card-title-en">${e.titleEn}</div>`:''}
       <div class="card-stats">
         <div class="cs"><div class="cl">Ep</div>${e.chapter||0}</div>
-        <div class="cs"><div class="cl">%</div>${e.pct||0}%</div>
-        ${seasonChip}${yearChip}
+        ${yearChip}
       </div>
-      <div class="mini-progress"><div class="mini-fill" style="width:${e.pct||0}%;background:${PALETTE[e.colorIdx!==undefined?e.colorIdx:0].text}"></div></div>
       <div class="mini-stars">${starsH(e.rating||0)}</div>
       ${e.where?`<div class="where-pill" style="background:${PALETTE[e.colorIdx!==undefined?e.colorIdx:0].bg};border-color:${PALETTE[e.colorIdx!==undefined?e.colorIdx:0].border};color:${PALETTE[e.colorIdx!==undefined?e.colorIdx:0].text}">👁 ${e.where}</div>`:''}
-      ${genresHTML}
     </div>
   </div>`;
 }
@@ -986,22 +901,27 @@ function animeCard(e){
 // ══════════════════════════════════════════════
 // RENDER
 // ══════════════════════════════════════════════
-function renderManga(){
-  const grid=document.getElementById('manga-grid');
-  const search=document.getElementById('manga-search').value.toLowerCase();
-  const active=mangas.filter(e=>!e.completado);
-  const counts={todos:active.length,manga:active.filter(e=>e.type==='manga').length,manhwa:active.filter(e=>e.type==='manhwa').length,manhua:active.filter(e=>e.type==='manhua').length,completado:mangas.filter(e=>e.completado).length};
-  ['todos','manga','manhwa','manhua','completado'].forEach(k=>{const el=document.getElementById('mc-'+k);if(el)el.textContent=counts[k];});
-  document.getElementById('manga-stats').innerHTML=`
-    <div class="stat-chip"><span class="num">${mangas.length}</span>Total</div>
-    <div class="stat-chip"><span class="num" style="color:var(--accent-manga)">${counts.manga}</span>Manga</div>
-    <div class="stat-chip"><span class="num" style="color:var(--accent-manhwa)">${counts.manhwa}</span>Manhwa</div>
-    <div class="stat-chip"><span class="num" style="color:var(--accent-manhua)">${counts.manhua}</span>Manhua</div>
-    <div class="stat-chip"><span class="num" style="color:var(--purple)">${counts.completado}</span>✓</div>`;
-  let filtered=mTab==='completado'?mangas.filter(e=>e.completado):mTab==='todos'?active:active.filter(e=>e.type===mTab);
-  if(search) filtered=filtered.filter(e=>e.titleEs.toLowerCase().includes(search)||(e.titleEn||'').toLowerCase().includes(search));
-  grid.innerHTML = filtered.length ? filtered.map(mangaCard).join('')
-    : `<div class="empty-state"><span class="emoji">${mTab==='completado'?'🏆':'📭'}</span><h3>${mTab==='completado'?'Sin completados':'Sin entradas'}</h3><p>Agrega tu primer manga, manhwa o manhua</p></div>`;
+function renderKdrama(){
+  const grid=document.getElementById('kdrama-grid');
+  const search=document.getElementById('kdrama-search').value.toLowerCase();
+  const active=kdramas.filter(e=>!e.completado);
+  const counts={'todos-k':active.length,'serie-k':active.filter(e=>e.subtype==='serie').length,tvshow:active.filter(e=>e.subtype==='tvshow').length,'pelicula-k':active.filter(e=>e.subtype==='pelicula').length,kcompletado:kdramas.filter(e=>e.completado).length};
+  document.getElementById('kc-todos').textContent=counts['todos-k'];
+  document.getElementById('kc-serie').textContent=counts['serie-k'];
+  document.getElementById('kc-tvshow').textContent=counts.tvshow;
+  document.getElementById('kc-pelicula').textContent=counts['pelicula-k'];
+  document.getElementById('kc-completado').textContent=counts.kcompletado;
+  document.getElementById('kdrama-stats').innerHTML=`
+    <div class="stat-chip"><span class="num">${kdramas.length}</span>Total</div>
+    <div class="stat-chip"><span class="num" style="color:var(--accent-kdrama)">${counts['serie-k']}</span>Series</div>
+    <div class="stat-chip"><span class="num" style="color:var(--accent-kdrama3)">${counts.tvshow}</span>TV Shows</div>
+    <div class="stat-chip"><span class="num" style="color:#f9a825">${counts['pelicula-k']}</span>Películas</div>
+    <div class="stat-chip"><span class="num" style="color:var(--purple)">${counts.kcompletado}</span>✓</div>`;
+  let filtered=kTab==='kcompletado'?kdramas.filter(e=>e.completado):kTab==='todos-k'?active:active.filter(e=>e.subtype===kTab.replace('-k',''));
+  if(kTab==='tvshow') filtered=active.filter(e=>e.subtype==='tvshow');
+  if(search) filtered=filtered.filter(e=>e.titleEs.toLowerCase().includes(search));
+  grid.innerHTML = filtered.length ? filtered.map(kdramaCard).join('')
+    : `<div class="empty-state"><span class="emoji">${kTab==='kcompletado'?'🏆':'🎭'}</span><h3>${kTab==='kcompletado'?'Sin completados':'Sin kdramas'}</h3><p>Agrega tu primer kdrama</p></div>`;
 }
 
 function renderAnime(){
@@ -1018,7 +938,7 @@ function renderAnime(){
     <div class="stat-chip"><span class="num" style="color:#e040fb">${counts.ova}</span>OVAs</div>
     <div class="stat-chip"><span class="num" style="color:var(--purple)">${counts.completado}</span>✓</div>`;
   let filtered=aTab==='acompletado'?animes.filter(e=>e.completado):aTab==='todos'?active:active.filter(e=>e.subtype===aTab);
-  if(search) filtered=filtered.filter(e=>e.titleEs.toLowerCase().includes(search)||(e.titleEn||'').toLowerCase().includes(search));
+  if(search) filtered=filtered.filter(e=>e.titleEs.toLowerCase().includes(search));
   grid.innerHTML = filtered.length ? filtered.map(animeCard).join('')
     : `<div class="empty-state"><span class="emoji">${aTab==='acompletado'?'🏆':'📺'}</span><h3>${aTab==='acompletado'?'Sin completados':'Sin anime'}</h3><p>Agrega tu primer anime</p></div>`;
 }
@@ -1056,7 +976,7 @@ window.addEventListener('appinstalled',()=>{ document.getElementById('install-ba
 // ══════════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════════
-renderManga();
+renderKdrama();
 renderAnime();
 if(SUPA_URL && SUPA_KEY) initSupabase();
 // Register Service Worker
